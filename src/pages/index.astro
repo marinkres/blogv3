@@ -6,6 +6,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getRecentPosts } from '@/lib/data-utils'
+import AnimatedHi from '@/components/AnimatedHi.tsx'
 
 const blog = await getRecentPosts(SITE.featuredPostCount)
 ---
@@ -15,10 +16,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
   <section>
     <div class="rounded-lg">
       <div class="flex flex-col space-y-1.5 p-6">
-        <h3 class="text-3xl leading-none font-medium">Hi</h3>
-        <p class="text-muted-foreground text-sm">
-          /hʌɪ/ &bull; <span class="font-medium">exclamation</span>
-        </p>
+        <AnimatedHi client:only="react" />
       </div>
       <div class="p-6 pt-0">
         <p class="mb-2 text-md">
