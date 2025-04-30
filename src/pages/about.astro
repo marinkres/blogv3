@@ -16,40 +16,41 @@ const projects = await getAllProjects()
   <section>
     <div class="min-w-full">
       <div class="prose mb-8">
+      <h1>About me</h1>
         <p class="mb-4">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            class="text-foreground"
-            external
-            underline>Astro</Link
-          >, <Link
-            href="https://tailwindcss.com"
-            class="text-foreground"
-            external
-            underline>Tailwind</Link
-          >, and <Link
-            href="https://ui.shadcn.com"
-            class="text-foreground"
-            external
-            underline>shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
+          My name is Marin and I'm a Computer Engineering student at <a href="https://algebra.hr/">Algebra Bernays University</a> - sub specialization in Systems Engineering.
         </p>
         <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
-            class="text-foreground"
-            underline>The State of Static Blogs in 2024</Link
-          >.
+          I'm currently exploring DevOps, networking, and cybersecurity.
         </p>
       </div>
-
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
     </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-4 text-2xl font-medium">Education</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        <span class="font-semibold">Computer Technician </span> - <span class="text-muted-foreground">Technical School Ruđer Bošković, (2017)</span>
+      </li>
+      <li>
+        <span class="font-semibold">BSc Computer Engineering</span> - <span class="text-muted-foreground">Algebra Bernays University, (present)</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-4 text-2xl font-medium">Certifications</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        <span class="font-semibold">Cisco Certified Network Administrator – CCNA </span> - <span class="text-muted-foreground">2018</span>
+      </li>
+      <li>
+        <span class="font-semibold">Fortinet Certified Associate Cybersecurity </span> - <span class="text-muted-foreground">2024</span>
+      </li>
+      <li>
+        <span class="font-semibold">Microsoft Certified AZ-900 </span> - <span class="text-muted-foreground">2025</span>
+      </li>
+    </ul>
   </section>
 </Layout>
