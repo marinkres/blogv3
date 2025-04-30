@@ -1,0 +1,66 @@
+---
+title: 'Disrupting and Repairing Active Directory Replication'
+description: 'Objective: Disrupt synchronization between two Active Directory domain controllers (both running Windows Server 2019) and then fix it.'
+date: 2025-06-01
+tags: ['v1.0.0']
+image: './2024.png'
+authors: ['enscribe', 'jktrn']
+---
+
+## Introduction
+Active Directory (AD) is like the brain of many IT environments. It handles authentication, authorization, and all that good stuff. But what happens when something goes wrong with replication between domain controllers?
+
+We’re going to intentionally disrupt AD replication between two domain controllers and then bring it back to life. Think of it as a controlled experiment to learn how AD replication works, and more importantly, how to troubleshoot it when things go sideways.
+
+## The Scenario
+Imagine a scenario where your organization relies on two Windows Server 2019-based domain controllers. Replication between these controllers is cruciall for maintaining consistency across the AD forest. However, for testing purposes or troubleshooting, you need to disrupt this synchronization.
+
+**Environment**: Two Windows Server 2019 VM’s with Active Domain Services installed and configured.
+
+**Objective**: Break their replication bond (nicely!) by tweaking some AD object attributes, then fix it.
+
+**Constraints**: No manipulation of services or network settings on domain controllers (DCs). Replication disruption must occur “internally,” operating solely on AD objects and/or schema. All services must remain live, and the network should function properly. (this is all about working inside AD itself.)
+
+## The Approach
+### Prerequisites
+- Spin up two Windows Server 2019 VMs and install Active Directory on both.
+- Make sure they’re replicating happily (for now).
+- Create test users to simulate real-world scenarios.
+
+### Attribute Manipulation:
+Now comes the fun part; disrupting replication by tweaking an attribute that AD holds dear: the "whenCreated" timestamp. 
+By default, this attribute is not modifiable; it only shows the “View” option. To work around this limitation, we can use the LDP (LDAP Data Interchange Format) tool.
+
+1. Connect to the domain controller using LDP, authenticate, and modify the “schemaUpgradeInProgress” attribute to the value “1.” This bypasses essential restrictions on attribute manipulation.
+2. Find the Distinguished Name (DN) of the “student1” User and identify the format of the attribute you want to manipulate.
+3. In this case we modify the “whenCreated” attribute to a new timestamp (e.g., set it to a date in the past).
+4. Observe how this affects replication.
+
+
+```bash title="powershell terminal"
+repadmin /replsum
+```
+
+You should see errors pop up like “A local object with this GUID already exists.” Congrats! You’ve successfully broken replication.
+
+Why? Because our modification creates a conflict—the server can’t replicate due to newer changes.
+
+
+## Recovery from Replication Conflict:
+
+Use tools like repadmin or PowerShell to pinpoint which object is causing the conflict (spoiler: it’s student1).
+
+To restore replication:
+
+1. Identify the conflicting object (e.g., the “student1” User).
+2. Delete this object.
+
+```bash title="powershell terminal"
+Remove-ADUser -Identity student1
+```
+Replication should resume.
+
+### Conclusion 
+
+Active Directory might seem like a mysterious black box at first, but once you start poking around under the hood, you realize it’s just a finely tuned machine with lots of moving parts. 
+This project was all about understanding those parts and learning how to troubleshoot when things go wrong.

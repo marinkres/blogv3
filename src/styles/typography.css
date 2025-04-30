@@ -1,11 +1,16 @@
 @reference './global.css';
 
 @layer components {
+  /* Dashed or dotted border for the homepage intro box */
+  .rounded-lg.border {
+    border-style: dashed !important; /* Change to dotted for dotted border */
+  }
+
   .prose {
     @apply text-foreground text-base leading-7;
 
     p {
-      @apply text-foreground/80 my-5 not-first:mt-5;
+      @apply text-foreground/80 my-6 not-first:mt-5;
     }
 
     h1 {
@@ -62,7 +67,8 @@
 
     code {
       @apply bg-muted/50 text-foreground relative rounded-sm px-[0.3rem] py-[0.2rem] text-sm font-medium break-words;
-      @apply [&>span[data-line='']>*]:text-(--shiki-light) dark:[&>span[data-line='']>*]:text-(--shiki-dark);
+      /* Corrected CSS variable syntax for Tailwind */
+      @apply [&>span[data-line='']>*]:text-[var(--shiki-light)] dark:[&>span[data-line='']>*]:text-[var(--shiki-dark)];
     }
 
     blockquote {

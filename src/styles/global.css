@@ -1,13 +1,28 @@
 @import 'tailwindcss';
 
+/* Hide Table of Contents on mobile/tablet */
+@media (max-width: 1279px) {
+  details.group.col-start-2 {
+    display: none !important;
+  }
+}
+
+/* Ensure TOC is visible on xl and above */
+@media (min-width: 1280px) {
+  details.group.col-start-2 {
+    display: block !important;
+  }
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans:
-    Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    Manrope, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono:
-    Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    Manrope Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
 
   --color-background: var(--background);
@@ -36,16 +51,16 @@
 }
 
 @font-face {
-  font-family: 'Geist';
-  src: url('/fonts/GeistVF.woff2') format('woff2-variations');
+  font-family: 'Manrope';
+  src: url('/fonts/manrope.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMonoVF.woff2') format('woff2-variations');
+  font-family: 'Manrope Mono';
+  src: url('/fonts/manrope.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -94,6 +109,7 @@
 
   html {
     @apply bg-background text-foreground scheme-light;
+    font-size: 17px;
 
     &.dark {
       @apply scheme-dark;
