@@ -1,14 +1,6 @@
 ---
-import AuthorCard from '@/components/AuthorCard.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import PageHead from '@/components/PageHead.astro'
-import Layout from '@/layouts/Layout.astro'
-import { getAllAuthors } from '@/lib/data-utils'
-
-const authors = await getAllAuthors()
+Astro.redirect('/algebra');
 ---
-
-<Layout>
   <PageHead slot="head" title="Authors" />
   <Breadcrumbs items={[{ label: 'Authors', icon: 'lucide:users' }]} />
   {

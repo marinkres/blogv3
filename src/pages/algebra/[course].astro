@@ -1,0 +1,66 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { Astro } from 'astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { course: 'mathematical-analysis-in-several-variables' } },
+    { params: { course: 'control-theory' } },
+    { params: { course: 'electrical-circuits-and-fields' } },
+  ];
+}
+
+const coursePosts = {
+  'mathematical-analysis-in-several-variables': [
+    { title: 'Part 21 - Summary', date: 'October 19, 2023', slug: 'part-21-summary' },
+    { title: "Part 20 - Divergence and Stokes' Theorem", date: 'October 18, 2023', slug: 'part-20-div-stokes' },
+    // ...more posts
+  ],
+  'control-theory': [
+    // ...posts
+  ],
+  'electrical-circuits-and-fields': [
+    // ...posts
+  ],
+};
+
+const courseNames = {
+  'mathematical-analysis-in-several-variables': {
+    name: 'Mathematical Analysis In Several Variables',
+    code: 'LMA017',
+  },
+  'control-theory': {
+    name: 'Control Theory',
+    code: 'ERE103',
+  },
+  'electrical-circuits-and-fields': {
+    name: 'Electrical Circuits And Fields',
+    code: 'EEM076',
+  },
+};
+
+const { course } = Astro.params;
+const posts = coursePosts[course] || [];
+const courseInfo = courseNames[course] || {};
+---
+
+<Layout>
+  <Breadcrumbs items={[
+    { label: 'Algebra', href: '/algebra', icon: 'lucide:book' },
+    { label: courseInfo.name, icon: 'lucide:file-text' }
+  ]} />
+  <h1 class="text-3xl font-semibold mt-4 mb-2">{courseInfo.name} <span class="text-muted-foreground text-lg">({courseInfo.code})</span></h1>
+  <div class="flex flex-col gap-4 mt-6">
+    {posts.length === 0 ? (
+      <div class="text-muted-foreground">No posts yet.</div>
+    ) : (
+      posts.map(post => (
+        <a href="#" class="block border rounded-lg p-4 hover:bg-secondary/50 transition">
+          <div class="font-medium">{post.title}</div>
+          <div class="text-muted-foreground text-xs mt-1">{post.date}</div>
+        </a>
+      ))
+    )}
+  </div>
+</Layout>

@@ -18,19 +18,19 @@ import logo from '../../public/static/logo.svg'
       {SITE.title}
     </Link>
     <div class="flex items-center gap-2 md:gap-4">
-      <nav class="hidden items-center gap-4 text-sm sm:gap-6 md:flex">
+      <nav class="flex items-center gap-x-6 text-sm font-medium">
         {
-          NAV_LINKS.map((item) => (
+          NAV_LINKS.filter((item) => item.label.toLowerCase() !== 'authors').map((item) => (
             <Link
               href={item.href}
-              class="text-foreground/60 hover:text-foreground/80 capitalize transition-colors"
+              class="hover:text-foreground/50 transition-colors"
             >
               {item.label}
             </Link>
           ))
         }
       </nav>
-      <MobileMenu client:load transition:persist />
+
       <ThemeToggle transition:persist />
     </div>
   </div>

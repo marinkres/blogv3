@@ -5,7 +5,7 @@ export const SITE: Site = {
   description:
     'Marink Blog',
   href: 'https://marink.me',
-  author: 'jktrn',
+  author: 'marink',
   locale: 'en-US',
   featuredPostCount: 2,
   postsPerPage: 3,
@@ -14,15 +14,15 @@ export const SITE: Site = {
 export const NAV_LINKS: SocialLink[] = [
   {
     href: '/blog',
-    label: 'blog',
-  },
-  {
-    href: '/authors',
-    label: 'authors',
+    label: '/blog',
   },
   {
     href: '/about',
-    label: 'about',
+    label: '/about',
+  },
+  {
+    href: '/algebra',
+    label: '/algebra',
   },
 ]
 
