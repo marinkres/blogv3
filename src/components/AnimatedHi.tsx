@@ -11,7 +11,7 @@ const greetings = [
     hi: 'こんにちは',
     pron: 'Kon-ni-chi-wa',
     lang: 'Japanese',
-    desc: '感嘆詞 (exclamation)',
+    desc: '感嘆詞',
   },
   {
     hi: 'Hola',
@@ -23,7 +23,7 @@ const greetings = [
     hi: 'Bok',
     pron: '/bok/',
     lang: 'Croatian',
-    desc: 'uzvik (exclamation)',
+    desc: 'uzvik',
   },
 ];
 
