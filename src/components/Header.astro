@@ -20,7 +20,7 @@ import { NAV_LINKS, SITE } from '@/consts'
     <div class="flex items-center gap-2 md:gap-4">
       <nav class="flex items-center gap-x-6 text-sm font-medium">
         {
-          NAV_LINKS.filter((item) => item.label.toLowerCase() !== 'authors').map((item) => (
+          NAV_LINKS.map((item) => (
             <Link
               href={item.href}
               class="hover:text-foreground/50 transition-colors"

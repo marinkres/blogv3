@@ -5,7 +5,7 @@ export const SITE: Site = {
   description:
     'Marink Blog',
   href: 'https://marink.me',
-  author: 'marink',
+
   locale: 'en-US',
   featuredPostCount: 2,
   postsPerPage: 3,
