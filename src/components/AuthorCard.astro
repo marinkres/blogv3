@@ -1,4 +1,4 @@
----
+
 import Link from '@/components/Link.astro'
 import AvatarComponent from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
@@ -22,7 +22,7 @@ const socialLinks: SocialLink[] = [
   author.data.linkedin && { href: author.data.linkedin, label: 'LinkedIn' },
   author.data.mail && { href: `mailto:${author.data.mail}`, label: 'Email' },
 ].filter(Boolean) as SocialLink[]
----
+
 
 <div
   class="has-[a:hover]:bg-secondary/50 overflow-hidden rounded-xl border p-4 transition-colors duration-300 ease-in-out"
