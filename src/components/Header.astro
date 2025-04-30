@@ -1,6 +1,7 @@
 ---
 import Link from '@/components/Link.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
+import MobileMenu from '@/components/ui/mobile-menu.tsx'
 
 import { NAV_LINKS, SITE } from '@/consts'
 
@@ -18,7 +19,7 @@ import { NAV_LINKS, SITE } from '@/consts'
       {SITE.title}
     </Link>
     <div class="flex items-center gap-2 md:gap-4">
-      <nav class="flex items-center gap-x-6 text-sm font-medium">
+      <nav class="hidden md:flex items-center gap-x-6 text-sm font-medium">
         {
           NAV_LINKS.map((item) => (
             <Link
@@ -31,7 +32,10 @@ import { NAV_LINKS, SITE } from '@/consts'
         }
       </nav>
 
-      <ThemeToggle transition:persist />
+      <div class="flex items-center gap-2">
+        <ThemeToggle transition:persist />
+        <MobileMenu client:only="react" />
+      </div>
     </div>
   </div>
 </header>
