@@ -1,12 +1,14 @@
 ---
 title: 'OpenLDAP / AD Integration - Centralized User Management'
 description: 'Integrating Windows Active Directory and OpenLDAP through Samba Server: Technological Solution for Heterogeneous Network Infrastructures'
-date: 2025-06-01
-tags: ['sysadmin', 'ad', 'windows']
+date: 2025-02-05
+tags: ['sysadmin', 'linux', 'AD', 'windows', 'lab']
 image: './adldap.png'
 authors: ['enscribe', 'jktrn']
 ---
 
+import Callout from '@/components/Callout.astro'
+import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets';
 import TwoImg from './Two.webp';
 import OneImg from './One.webp';
@@ -25,24 +27,19 @@ Key technical elements include configuring DNS for inter-server communication, s
 
 Experimental results demonstrate functional user synchronization between systems, while alternative approaches such as FreeIPA were identified as less practical due to the complexity of managing LDIF files.
 
->This is not a step by step guide, but a over simplified explanation of the project workings.
+<Callout variant="important">
+**This is not a step by step guide, but a over simplified explanation of the project workings.**
+</Callout>
 
 ## Architecture of the Heterogeneous System
 
 ### Two-Component Model: Windows and Linux Server Infrastructure
 
 The implementation uses the VMware Workstation Pro 2017 virtualization platform with two virtual machines:
-
-Windows Server 2019 (ADSERVER.local)
-
-- IP: 192.168.1.10/24
-- DNS: 127.0.0.1 (loopback for local resolution)
-- Services: Active Directory Domain Services, DNS Server
-
-CentOS 8 (openldap.adserver.local)
-- IP: 192.168.1.20/24
-- DNS: 192.168.1.10 (reference to Windows DNS)
-- Services: OpenLDAP 2.4, Samba 4.12, SSSD, Kerberos 5
+| Server | IP | DNS | Services |
+| ---- | ----------- | ------- | ------- |
+| `ADSERVER.local` | `192.168.1.10` | `127.0.0.1` | `Active Directory Domain Services, DNS Server` |
+| `openldap.adserver.local` | `192.168.1.20` | `192.168.1.10` | `OpenLDAP 2.4, Samba 4.12, SSSD, Kerberos 5` |
 
 The network configuration uses bridge mode for direct L2 communication between virtual nodes, ensuring low latency and seamless SMB/CIFS protocol operation.
 
