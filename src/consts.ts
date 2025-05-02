@@ -19,6 +19,10 @@ export const NAV_LINKS: SocialLink[] = [
   {
     href: '/about',
     label: '/about',
+  },
+  {
+    href: '/projects',
+    label: '/projects',
   }
 ]
 
@@ -26,14 +30,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     href: 'https://github.com/marinkres',
     label: 'GitHub',
-  },
-  {
-    href: 'https://linkedin.com/in/marinkresic',
-    label: 'LinkedIn',
-  },
-  {
-    href: 'mailto:marindev27@gmail.com',
-    label: 'Email',
   },
   {
     href: '/rss.xml',

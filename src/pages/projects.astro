@@ -1,13 +1,22 @@
 ---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Layout from '@/layouts/Layout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import PageHead from '@/components/PageHead.astro';
 
-const title = 'Projects';
-
+const projects = await getCollection('projects');
 ---
 
 <Layout>
-  <h1 class="text-4xl font-medium">{title}</h1>
-  <p class="mt-4 text-foreground/80">
-    This page is under construction. Check back soon for project details!
-  </p>
+  <PageHead slot="head" title="Projects" />
+  <Breadcrumbs items={[{ label: 'Projects', icon: 'lucide:code' }]} />
+
+  <div class="mt-8 grid gap-6 md:grid-cols-2">
+    {projects.length === 0 ? (
+      <p class="text-muted-foreground text-center col-span-full">No projects found.</p>
+    ) : (
+      projects.map((project) => <ProjectCard project={project} />)
+    )}
+  </div>
 </Layout>
