@@ -66,7 +66,7 @@
     }
 
     code {
-      @apply bg-muted/50 text-foreground relative rounded-sm px-[0.3rem] py-[0.2rem] text-sm font-medium break-words;
+      @apply bg-muted/50 text-foreground relative rounded-sm px-[0.8rem] py-[0.3rem] text-sm font-medium break-words;
       /* Corrected CSS variable syntax for Tailwind */
       @apply [&>span[data-line='']>*]:text-[var(--shiki-light)] dark:[&>span[data-line='']>*]:text-[var(--shiki-dark)];
     }
