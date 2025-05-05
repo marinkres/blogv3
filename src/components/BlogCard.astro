@@ -19,11 +19,11 @@ const readTime = readingTime(entry.body!)
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
-    class="flex flex-col gap-4 sm:flex-row"
+    class="flex flex-col gap-4 sm:flex-row sm:items-start sm:flex-wrap"
   >
    {
       entry.data.image && (
-        <div class="max-w-3xs sm:shrink-0">
+        <div class="max-w-3xs">
           <Image
             src={entry.data.image}
             alt={entry.data.title}
