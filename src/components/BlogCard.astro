@@ -4,7 +4,9 @@ import { Badge } from '@/components/ui/badge'
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import Link from './Link.astro'
-
+import { Separator } from '@/components/ui/separator'
+import { Icon } from 'astro-icon/components'
+import { TAG_ICON_MAP, TAG_PASTEL_COLOR_MAP } from '@/consts'
 interface Props {
   entry: CollectionEntry<'blog'>
 }
@@ -15,41 +17,47 @@ const readTime = readingTime(entry.body!)
 ---
 
 <div
-  class="hover:bg-secondary/50 border p-4 transition-colors duration-300 ease-in-out"
+  class="hover:bg-secondary/50 border p-4 transition-colors duration-300 ease-in-out relative"
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
     class="flex flex-col gap-4 sm:flex-row sm:items-start sm:flex-wrap"
   >
-   {
-      entry.data.image && (
-        <div class="max-w-3xs">
-          <Image
-            src={entry.data.image}
-            alt={entry.data.title}
-            width={100}
-            height={100}
-            class="object-cover"
-          />
-        </div>
-      )
-    }
-
-    <div class="grow">
-      <h3 class="text-lg font-medium">{entry.data.title}</h3>
+   
+<div class="grow">
+  <h3 class="text-lg font-medium">{entry.data.title}</h3>
+  <p class="text-muted-foreground mb-2 text-sm line-clamp-3 overflow-hidden break-words">
+    {entry.data.description}
+  </p>
       <div
         class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-xs"
       >
+    
         <span>{formattedDate}</span>
-        
-        {entry.data.tags && entry.data.tags.length > 0 && (
-          <span class="flex flex-wrap gap-1">
-            {entry.data.tags.map(tag => (
-              <Badge variant="secondary">{tag}</Badge>
-            ))}
-          </span>
-        )}
+        <Separator orientation="vertical" className="h-4!" />
+        <span>{readTime}</span>
+       
       </div>
+      {
+        entry.data.tags && (
+          <div class="flex flex-wrap gap-2">
+            {entry.data.tags.map((tag) => (
+              <Badge variant="secondary" className="flex items-center gap-x-1">
+                <Icon name="lucide:hash" class="size-3" />
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )
+      }
     </div>
+    {entry.data.tags && entry.data.tags.length > 0 && (
+      <Icon
+        name={TAG_ICON_MAP[entry.data.tags[0]] ?? 'lucide:tag'}
+        class="absolute bottom-4 right-4 size-5 pointer-events-none"
+        aria-hidden="true"
+        style={`color: ${TAG_PASTEL_COLOR_MAP[entry.data.tags[0]] ?? '#b5d6ea'}`}
+      />
+    )}
   </Link>
 </div>
