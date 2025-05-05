@@ -5,6 +5,10 @@
   .rounded-lg.border {
     border-style: dashed !important; /* Change to dotted for dotted border */
   }
+  .border {
+    border-style: dashed !important; /* Change to dotted for dotted border */
+    border-color: dimgrey;
+  }
 
   .prose {
     @apply text-foreground text-base leading-7;
