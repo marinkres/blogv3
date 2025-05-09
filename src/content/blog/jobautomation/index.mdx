@@ -24,11 +24,8 @@ As a student, keeping track of job opportunities is important, especially when I
 
 By creating a job scraping service that checks for new student IT job listings and emails me whenever new opportunities become available, this becomes easier.
 
-I wanted a system that could:
-
-- Automatically look for job listings from a website (in this case an IT job portal in Croatia).
-- Parse and filter these listings for new job opportunities.
-- Send me an email notification if there were any new jobs that hadn't been seen before.
+I wanted a system that could automatically look for job listings from a website (in this case an IT job portal in Croatia).
+Parse and filter these listings for new job opportunities and then send me an email notification if there were any new jobs that hadn't been seen before.
 
 And the best part? I wanted all of this to run automatically every day, without me having to worry about it.
 
@@ -43,7 +40,7 @@ The first step was to set up a Node.js project to scrape job listings from the w
 3. Compares the current jobs to the previously saved jobs to find new listings.
 4. Sends an email with the new job listings using Nodemailer.
 
-Example of the core logic, full code can be found on my [Github Repository ↪](https://github.com/marinkres/studentjobs):
+Example of the core logic:
 ```javascript title="main.js"
 const axios = require('axios');
 const cheerio = require('cheerio');
