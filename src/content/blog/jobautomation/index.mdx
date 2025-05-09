@@ -26,7 +26,7 @@ By creating a job scraping service that checks for new student IT job listings a
 
 I wanted a system that could:
 
-- Automatically scrape job listings from a website (in this case, studentski-poslovi.hr, an IT job portal in Croatia).
+- Automatically look for job listings from a website (in this case an IT job portal in Croatia).
 - Parse and filter these listings for new job opportunities.
 - Send me an email notification if there were any new jobs that hadn't been seen before.
 
@@ -34,7 +34,7 @@ And the best part? I wanted all of this to run automatically every day, without 
 
 This blog post will walk you through how I built the entire system using **Node.js**, **GitHub Actions**, and Gmail for email notifications.
 
-## Step 1: Scraping Job Listings with Node.js
+## Step 1: Finding Job Listings with Node.js
 
 The first step was to set up a Node.js project to scrape job listings from the website. I used a few packages that helped make the process smoother and created a main.js script:
 
@@ -50,7 +50,7 @@ const cheerio = require('cheerio');
 const nodemailer = require('nodemailer');
 const fs = require('fs').promises;
 
-const URL = 'https://studentski-poslovi.hr/pretraga?category=it-poslovi&province=zagreb&activated_from=all&min_hour_rate=';
+const URL = 'https://website.hr/pretraga?category=it-poslovi&province=zagreb&activated_from=all&min_hour_rate=';
 
 async function scrapeJobs() {
   try {
@@ -106,8 +106,8 @@ The most important part was automating the entire process so that I didn't have 
 
 I set up a **cron job** in GitHub Actions that triggers every 6 hours. This cron syntax ensures that the job scraping script runs at 00:00, 06:00, 12:00, and 18:00 UTC every day, fetching the latest job listings.
 
-The GitHub Actions workflow file (scrape-jobs.yml) looks like this:
-```bash title="scrape-jobs.yml"
+The GitHub Actions workflow file (find-jobs.yml) looks like this:
+```bash title="find-jobs.yml"
 name: Scrape Jobs and Send Email
 
 on:
@@ -116,7 +116,7 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  scrape-jobs:
+  find-jobs:
     runs-on: ubuntu-latest
 
     steps:
@@ -151,7 +151,7 @@ jobs:
           # If there are no changes to commit, skip the commit step
           git diff --cached --quiet || git commit -m "Update previous jobs file"  # Commit only if changes exist
           # Push changes to the repository
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/marinkres/studentjobs.git
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/{user}/studentjobs.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
 
