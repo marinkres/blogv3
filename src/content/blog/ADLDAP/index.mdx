@@ -21,11 +21,9 @@ import SixImg from './Six.webp';
 
 In hybrid IT environments, where Linux and Windows servers coexist, managing user authentication across platforms can pose significant challenges. A centralized authentication system ensures simplicity, security, and efficiency by synchronizing user accounts and credentials between systems. 
 
-This project implementation successfully integrated Windows Server 2019 Active Directory (AD) with an OpenLDAP system on CentOS Linux using Samba tools, achieving bidirectional user account synchronization and centralized authentication management. 
+This project implementation successfully integrated Windows Server 2019 Active Directory (AD) with an OpenLDAP system on CentOS Linux achieving bidirectional user account synchronization and centralized authentication management. 
 
 Key technical elements include configuring DNS for inter-server communication, setting up Kerberos authentication for secure interaction, and using Samba services to join the Linux server to the AD domain. 
-
-Experimental results demonstrate functional user synchronization between systems, while alternative approaches such as FreeIPA were identified as less practical due to the complexity of managing LDIF files.
 
 <Callout variant="important">
 **This is not a step by step guide, but a over simplified explanation of the project workings.**
@@ -55,7 +53,6 @@ Add-DnsServerPrimaryZone -NetworkID "192.168.1.0/24" -ReplicationScope "Forest"
 Add-DnsServerResourceRecordA -Name "openldap" -IPv4Address "192.168.1.20"
 ```
 
-
 This approach eliminates dependence on external DNS resolvers and enables dynamic registration of clients through Samba integration.
 
 <Image src={TwoImg} width="600" height="400" alt="Two" />
@@ -63,7 +60,7 @@ This approach eliminates dependence on external DNS resolvers and enables dynami
 ## Configuring Windows Active Directory
 ### Initial Procedure for Promotion to DC
 
-After the basic installation of Windows Server, the DCPROMO tool was used to promote the server to a Domain Controller with the creation of a new forest, adserver.local. 
+After the basic installation of Windows Server we promote the server to a Domain Controller with the creation of a new forest, adserver.local. 
 
 Significant configuration points include:
 
@@ -194,13 +191,6 @@ Although not implemented in this project, the theoretical framework for a multi-
 ### Measuring Authentication Latency
 Using the time command during the kinit operation, the average time to issue a TGT was 120ms on the local network, which corresponds to expectations for a 1 Gbps environment.
 
-## Conclusion and Recommendations
-The implementation demonstrated the ability of OpenLDAP and Samba to integrate into heterogeneous environments, with several key recommendations for production use:
+## Conclusion
 
-- Automatic Synchronization: Implementing lsyncd for real-time replication of LDAP changes
-
-- Redundancy: Setting up a secondary Samba AD Domain Controller
-
-- Monitoring: Integration with Zabbix or Prometheus for monitoring LDAP/SMB metrics
-
-This project serves as a reference model for system engineers who combine Microsoft and open-source technologies in corporate networks.
+Success 🥰🥰🥰
