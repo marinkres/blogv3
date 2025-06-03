@@ -17,7 +17,7 @@ import { NAV_LINKS, SITE } from '@/consts'
     class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 pl-4 pb-2 pt-2 pr-4"
   >
     <Link href="/" class="flex shrink-0 items-center text-xl font-bold gap-2">
-      <img src="/logosaturnclean.png" alt="Saturn Logo" class="w-11 h-11 mr-1" />
+      <img src="/saturn3d.png" alt="Saturn Logo" class="w-13 h-13 mr-1" />
     </Link>
     <div class="flex items-center gap-2 md:gap-4">
       <nav class="hidden md:flex items-center gap-x-6 text-sm font-medium">
@@ -58,8 +58,21 @@ import { NAV_LINKS, SITE } from '@/consts'
 </script>
 
 <style>
+  @font-face {
+    font-family: 'Aero';
+    src: url('/fonts/Aero.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   .show-border {
     border-bottom: 1px solid rgb(var(--border) / 0.6);
     box-shadow: 0 1px 4px 0 rgb(0 0 0 / 0.03);
+  }
+
+  .aero-text {
+    font-family: 'Aero', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
   }
 </style>
