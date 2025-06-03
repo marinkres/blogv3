@@ -62,14 +62,14 @@ export const TAG_ICON_MAP: IconMap = {
 
 // Maps blog tags to pastel color hex codes
 export const TAG_PASTEL_COLOR_MAP: IconMap = {
-  devops: '#a3b9e6', // mint
-  cybersecurity: '#a3c9a8', // pastel blue
-  sysadmin: '#f9d5a2', // peach
-  windows: '#c3b1e1', // lavender
-  linux: '#f7b2ad', // light pink
-  lab: '#ffe5b4', // light apricot
-  Design: '#b5ead7', // aqua
-  Tutorial: '#f7cac9', // rose
-  Personal: '#b5d6ea', // sky blue
+  devops: '#b39ddb',        // light purple
+  cybersecurity: '#9575cd', // medium purple
+  sysadmin: '#7e57c2',      // deep purple
+  windows: '#ce93d8',       // lavender
+  linux: '#ab47bc',         // vibrant purple
+  lab: '#8e24aa',           // dark purple
+  Design: '#ba68c8',        // pastel purple
+  Tutorial: '#9c27b0',      // strong purple
+  Personal: '#6a1b9a',      // very deep purple
   // Add more as needed
 };
