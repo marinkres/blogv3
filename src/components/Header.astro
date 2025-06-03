@@ -9,14 +9,15 @@ import { NAV_LINKS, SITE } from '@/consts'
 ---
 
 <header
-  class="bg-background sticky top-0 z-10"
+  class="bg-background sticky top-0 z-10 transition-colors duration-300"
+  id="site-header"
   transition:persist
 >
   <div
     class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 p-4"
   >
-    <Link href="/" class="flex shrink-0 items-center text-xl font-bold">
-      {SITE.title}
+    <Link href="/" class="flex shrink-0 items-center text-xl font-bold gap-2">
+      <img src="/logosaturnclean.png" alt="Saturn Logo" class="w-17 h-17 mr-1" style="margin-bottom:2px;" />
     </Link>
     <div class="flex items-center gap-2 md:gap-4">
       <nav class="hidden md:flex items-center gap-x-6 text-sm font-medium">
@@ -39,3 +40,26 @@ import { NAV_LINKS, SITE } from '@/consts'
     </div>
   </div>
 </header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const header = document.getElementById('site-header');
+    function onScroll() {
+      if (!header) return;
+      if (window.scrollY > 0) {
+        header.classList.add('show-border');
+      } else {
+        header.classList.remove('show-border');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  });
+</script>
+
+<style>
+  .show-border {
+    border-bottom: 1px solid rgb(var(--border) / 0.6);
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 0.03);
+  }
+</style>

@@ -12,8 +12,12 @@ const projects = await getCollection('projects');
   <PageHead slot="head" title="Projects" />
   <Breadcrumbs items={[{ label: 'Projects', icon: 'lucide:code' }]} />
   <div class="mt-8 grid gap-6 md:grid-cols-2">
-    <p>Find other projects under the #lab tag in the /blog</p>
-   
+    <p>
+      Find other projects under the 
+      <a href="/tags/lab" class="text-primary underline hover:text-primary/80">#lab</a>
+      tag in the 
+      <a href="/blog" class="text-primary underline hover:text-primary/80">/blog</a>
+    </p>
   </div>
   <div class="mt-8 grid gap-6 md:grid-cols-2">
     {projects.length === 0 ? (
