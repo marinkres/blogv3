@@ -19,7 +19,7 @@ import SixImg from './Six.webp';
 
 ## Introduction
 
-In hybrid IT environments, where Linux and Windows servers coexist, managing user authentication across platforms can pose significant challenges. A centralized authentication system ensures simplicity, security, and efficiency by synchronizing user accounts and credentials between systems. 
+In hybrid IT environments, where Linux and Windows servers coexist, managing user authentication across platforms can be tricky. A centralized authentication system ensures simplicity, security, and efficiency by synchronizing user accounts and credentials between systems. 
 
 This project implementation successfully integrated Windows Server 2019 Active Directory (AD) with an OpenLDAP system on CentOS Linux achieving bidirectional user account synchronization and centralized authentication management. 
 
@@ -61,12 +61,6 @@ This approach eliminates dependence on external DNS resolvers and enables dynami
 ### Initial Procedure for Promotion to DC
 
 After the basic installation of Windows Server we promote the server to a Domain Controller with the creation of a new forest, adserver.local. 
-
-Significant configuration points include:
-
-- **FSMO Role Assignment**: Schema Master, Domain Naming Master, PDC Emulator
-- **Dynamic DNS Registration**: Enabled for client stations
-- **Forest Trust**: Not implemented due to the simplicity of the test environment
 
 The functionality of AD can be verified through the Active Directory Users and Computers console, where test users (e.g., "Marko," "Darko") were created.
 
@@ -185,9 +179,6 @@ Add-DnsServerResourceRecordPtr -Name "20" -PtrDomainName "openldap.adserver.loca
 ```
 
 ## Performance and System Testing
-### Load Balancing and Failover Scenarios
-Although not implemented in this project, the theoretical framework for a multi-master Samba configuration was proposed using samba-tool domain level raise to raise the functional level to the Windows Server 2016 scheme.
-
 ### Measuring Authentication Latency
 Using the time command during the kinit operation, the average time to issue a TGT was 120ms on the local network, which corresponds to expectations for a 1 Gbps environment.
 

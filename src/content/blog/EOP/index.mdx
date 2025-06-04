@@ -16,7 +16,7 @@ import ThreeImg from './three.png';
 
 
 ## Elevation of Privilege (EoP) in Linux
-Privilege escalation, also known as Elevation of Privilege (EoP), refers to a situation where a user gains privileges they are not authorized to have. In the context of computer security, this often means a regular user obtaining administrative or root privileges, allowing them to perform actions that could compromise the security or stability of the system. EoP exploits can arise from software vulnerabilities, configuration errors, or design flaws.
+Privilege escalation, also known as Elevation of Privilege (EoP), refers to a situation where a user gains privileges they are not authorized to have. In the context of computer security, this often means a regular laik user obtaining administrative or root privileges, allowing them to perform actions that could compromise the security or stability of the system. EoP exploits can arise from software vulnerabilities, configuration errors, or design flaws.
 
 ### CVE-2019-12735: A Real-World Example
  [CVE-2019-12735](https://www.exploit-db.com/exploits/46973) is a notable example of a vulnerability in the Vim and Neovim text editors that could be exploited for privilege escalation. This vulnerability arose from improper handling of modelines, special lines in a text file that can set editor options. An attacker could craft a text file with malicious modelines that, when opened in Vim or Neovim, could execute arbitrary commands with the privileges of the user running the editor. If the editor was run with elevated privileges (e.g., using sudo), the commands would execute with those elevated privileges, leading to a potential compromise of the system.
@@ -83,9 +83,5 @@ The specific vulnerability CVE-2019-12735 in Vim and Neovim was patched. After t
 
 4. **Regular Audits and Monitoring**: Regularly audit the use of sudo and monitor system logs for any unusual activity. Implement security tools and intrusion detection systems to catch unauthorized privilege escalation attempts.
 
-By applying these patches and following best security practices, the risk associated with CVE-2019-12735 and similar vulnerabilities can be effectively mitigated.
-
 ## Conclusion
-By following these steps, you have successfully escalated your privileges to the root user using Vim and sudo. Remember, this method should be used ethically and legally, respecting the policies and regulations of your organization.
-
-Privilege escalation through Vim and sudo showcases how powerful features and potential misconfigurations can be leveraged. It's crucial to follow best security practices, conduct regular audits, and keep systems up-to-date to mitigate such vulnerabilities. Always use elevated privileges responsibly and ensure that security measures are in place to prevent unauthorized access.
+We have successfully escalated your privileges to the root user using Vim and sudo. Remember, this method should be used ethically and legally, respecting the policies and regulations of your organization.

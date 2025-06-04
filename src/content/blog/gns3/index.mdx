@@ -27,7 +27,7 @@ import ElevenImg from './SBprimary.png';
 
 These are my notes for setting up a full functional enterprise network in a VM setting.
 
-It covers the essential steps for configuring routing and other fundamental settings to ensure a smooth and functional virtual lab. By the end of this guide, you'll have a solid foundation to build upon as we look into advanced firewall configurations and security strategies in the upcoming posts.
+It covers the steps for configuring routing and other fundamental settings to ensure a smooth and functional virtual lab. By the end of this lab, you'll have a solid foundation to build upon as I go into advanced firewall configurations and security strategies in the upcoming posts.
 
 <Callout variant="note">
 This Lab series assumes that you have at least some knowledge of Networking and Computers in general.
@@ -310,15 +310,5 @@ NAT, or Network Address Translation, is a crucial aspect of firewall configurati
 
 3. **Policy Implementation**: In the context of the firewall policies we have configured, NAT ensures that traffic from the internal networks (LAN-LJ and LAN-SB) is properly translated when it leaves the network through the WAN interfaces. This translation is necessary for devices to communicate with external networks and receive responses to their requests.
 
-4. **Backup and Redundancy**: With policies like "LAN-LJ-backup" and the primary and secondary routes configured on the FortiGate-LJ, NAT plays a role in ensuring seamless failover. If the primary WAN interface (WAN_primarni) fails, the backup interface (WAN-backup) can take over, and NAT ensures that internal devices can still reach external networks without manual reconfiguration.
+4. **Backup and Redundancy**: With policies like "LAN-LJ-backup" and the primary and secondary routes configured on the FortiGate-LJ, NAT plays a role in ensuring failover. If the primary WAN interface (WAN_primarni) fails, the backup interface (WAN-backup) can take over, and NAT ensures that internal devices can still reach external networks without manual reconfiguration.
 
-By enabling NAT in the firewall policies, we achieve a streamlined and secure network setup that supports efficient traffic flow and robust security measures.
-
-### Next Topics
-
-In this post, we have set up a complex network topology involving multiple virtual machines, firewalls, and routing configurations to ensure secure and efficient traffic management. 
-
-In the next post, we will dive into advanced networking features and concepts:
-
-- **SD-WAN** (Software-Defined Wide Area Network): How it can optimize and secure WAN connections, providing better performance and flexibility.
-- **FSSO** (Fortinet Single Sign-On): How it integrates with FortiGate firewalls to offer seamless user authentication and network access control.
