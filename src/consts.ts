@@ -1,10 +1,10 @@
 import type { IconMap, SocialLink, Site } from '@/types'
 
 export const SITE: Site = {
-  title: '/marink.me',
+  title: '/marink.dev',
   description:
     'Marink Blog',
-  href: 'https://marink.me',
+  href: 'https://marink.dev',
 
   locale: 'en-US',
   featuredPostCount: 2,
