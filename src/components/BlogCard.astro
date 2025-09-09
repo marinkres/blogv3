@@ -1,12 +1,8 @@
 ---
 import { formatDate, readingTime } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
-import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import Link from './Link.astro'
 import { Separator } from '@/components/ui/separator'
-import { Icon } from 'astro-icon/components'
-import { TAG_ICON_MAP, TAG_PASTEL_COLOR_MAP } from '@/consts'
 interface Props {
   entry: CollectionEntry<'blog'>
 }
@@ -17,7 +13,7 @@ const readTime = readingTime(entry.body!)
 ---
 
 <div
-  class="hover:bg-secondary/50 border-2 border-dashed border-border p-4 transition-colors duration-300 ease-in-out relative"
+  class="hover:bg-secondary/50 p-4 transition-colors duration-300 ease-in-out"
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
@@ -38,26 +34,6 @@ const readTime = readingTime(entry.body!)
         <span>{readTime}</span>
        
       </div>
-      {
-        entry.data.tags && (
-          <div class="flex flex-wrap gap-2">
-            {entry.data.tags.map((tag) => (
-              <Badge variant="secondary" className="flex items-center gap-x-1">
-                <Icon name="lucide:hash" class="size-3" />
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )
-      }
     </div>
-    {entry.data.tags && entry.data.tags.length > 0 && (
-      <Icon
-        name={TAG_ICON_MAP[entry.data.tags[0]] ?? 'lucide:tag'}
-        class="absolute bottom-4 right-4 size-5 pointer-events-none"
-        aria-hidden="true"
-        style={`color: ${TAG_PASTEL_COLOR_MAP[entry.data.tags[0]] ?? '#81c784'}`}
-      />
-    )}
   </Link>
 </div>
