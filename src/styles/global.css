@@ -104,7 +104,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    @apply border-border outline-ring/50 tracking-tight;
+    @apply border-border outline-ring/50 tracking-normal;
   }
 
   html {
