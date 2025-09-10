@@ -58,8 +58,42 @@ For anyone reading this post in 2025 just change the port to 8080 to save you th
 
 <Image src={OneImg} alt="ssh" />
 
-## Results
+## Bonus
 
+The Raspberry Pi's LED lights are too bright at night so I made a small script to toggle them on/off.
+You can check it out here: 
+
+```bash title="noled.sh"
+#!/bin/bash
+# Usage: sudo noled.sh on
+#        sudo noled.sh off
+
+LEDS=(/sys/class/leds/ACT /sys/class/leds/PWR)
+STATE=$1
+
+if [ "$STATE" != "on" ] && [ "$STATE" != "off" ]; then
+    echo "Usage: sudo $0 on|off"
+    exit 1
+fi
+
+VALUE=1
+[ "$STATE" == "off" ] && VALUE=0
+
+for led in "${LEDS[@]}"; do
+    # Make sure LED directory exists
+    [ -d "$led" ] || continue
+
+    # Set trigger to none (manual control)
+    echo none | sudo tee "$led/trigger" > /dev/null
+
+    # Set brightness
+    echo $VALUE | sudo tee "$led/brightness" > /dev/null
+done
+```
+
+Give it permissions and set up a cronjob for automatic toggle at nightime/morning.
+
+## Results
 Thats about it in short.
 It blocks ads and trackers on all devices connected to my home network, netflix seems to be logging a lot which I didn't expect.
 
