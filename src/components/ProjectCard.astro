@@ -23,14 +23,17 @@ const { project } = Astro.props
   >
     {
       project.data.image && (
-        <div class="w-20 h-20 shrink-0">
+        <div class="w-20 h-20 shrink-0 relative">
           <Image
             src={project.data.image}
             alt={project.data.name}
             width={1200}
             height={630}
-            class="w-full h-full object-cover rounded-lg"
+            class="w-full h-full object-cover rounded-lg select-none pointer-events-none"
+            draggable="false"
+            oncontextmenu="return false"
           />
+          <div class="absolute inset-0 rounded-lg pointer-events-none" style="background: transparent;"></div>
         </div>
       )
     }

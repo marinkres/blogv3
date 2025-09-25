@@ -3,6 +3,7 @@ import { formatDate, readingTime } from '@/lib/utils'
 import type { CollectionEntry } from 'astro:content'
 import Link from './Link.astro'
 import { Separator } from '@/components/ui/separator'
+import { Image } from 'astro:assets'
 interface Props {
   entry: CollectionEntry<'blog'>
 }
@@ -17,22 +18,33 @@ const readTime = readingTime(entry.body!)
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
-    class="flex flex-col gap-4 sm:flex-row sm:items-start sm:flex-wrap"
+    class="flex items-start gap-4"
   >
-   
-<div class="grow">
-  <h3 class="text-lg font-medium">{entry.data.title}</h3>
-  <p class="text-muted-foreground mb-2 text-sm line-clamp-3 overflow-hidden break-words">
-    {entry.data.description}
-  </p>
-      <div
-        class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-xs"
-      >
-    
+    {
+      entry.data.image && (
+        <div class="w-16 h-16 shrink-0 relative">
+          <Image
+            src={entry.data.image}
+            alt={entry.data.title}
+            width={1200}
+            height={630}
+            class="w-full h-full object-cover rounded-lg select-none pointer-events-none"
+            draggable="false"
+            oncontextmenu="return false"
+          />
+          <div class="absolute inset-0 rounded-lg pointer-events-none" style="background: transparent;"></div>
+        </div>
+      )
+    }
+    <div class="grow min-w-0">
+      <h3 class="text-lg font-medium mb-1">{entry.data.title}</h3>
+      <p class="text-muted-foreground mb-2 text-sm line-clamp-2 overflow-hidden break-words">
+        {entry.data.description}
+      </p>
+      <div class="text-muted-foreground flex items-center gap-2 text-xs">
         <span>{formattedDate}</span>
-        <Separator orientation="vertical" className="h-4!" />
+        <Separator orientation="vertical" className="h-3" />
         <span>{readTime}</span>
-       
       </div>
     </div>
   </Link>
