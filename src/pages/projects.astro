@@ -2,10 +2,13 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Layout from '@/layouts/Layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
+import BlogCard from '@/components/BlogCard.astro';
 import { getCollection } from 'astro:content';
 import PageHead from '@/components/PageHead.astro';
+import { getPostsByTag } from '@/lib/data-utils';
 
 const projects = await getCollection('projects');
+const labPosts = await getPostsByTag('lab');
 ---
 
 <Layout>
@@ -13,17 +16,31 @@ const projects = await getCollection('projects');
   <Breadcrumbs items={[{ label: 'Projects', icon: 'lucide:code' }]} />
   <div class="mt-8 grid gap-6 md:grid-cols-2">
     <p>
-      Find other projects under the 
-      <a href="/tags/lab" class="text-primary underline hover:text-primary/80">#lab</a>
-      tag in the 
-      <a href="/blog" class="text-primary underline hover:text-primary/80">/blog</a>
+      This page showcases both standalone projects and lab experiments documented in blog posts.
     </p>
   </div>
-  <div class="mt-8 grid gap-6 md:grid-cols-2">
-    {projects.length === 0 ? (
-      <p class="text-muted-foreground text-center col-span-full">No projects found.</p>
-    ) : (
-      projects.map((project) => <ProjectCard project={project} />)
-    )}
-  </div>
+
+  {projects.length > 0 && (
+    <section class="mt-8">
+      <h2 class="mb-6 text-2xl font-semibold">Product Projects</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+  )}
+
+  {labPosts.length > 0 && (
+    <section class="mt-8">
+      <h2 class="mb-6 text-2xl font-semibold">Lab Experiments</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {labPosts.map((post) => <BlogCard entry={post} />)}
+      </div>
+    </section>
+  )}
+
+  {projects.length === 0 && labPosts.length === 0 && (
+    <div class="mt-8">
+      <p class="text-muted-foreground text-center">No projects or lab experiments found.</p>
+    </div>
+  )}
 </Layout>

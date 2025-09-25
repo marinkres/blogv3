@@ -14,53 +14,51 @@ const { project } = Astro.props
 ---
 
 <div
-  class="hover:bg-secondary/50 rounded-xl border p-4 transition-colors duration-300 ease-in-out"
+  class="hover:bg-secondary/50 rounded-xl border p-3 transition-colors duration-300 ease-in-out"
 >
   <Link
     href={project.data.link}
-    class="flex flex-col gap-4 sm:flex-row sm:items-start sm:flex-wrap"
+    class="flex items-start gap-3"
     external
   >
     {
       project.data.image && (
-        <div class="max-w-3xs sm:shrink-0">
+        <div class="w-20 h-20 shrink-0">
           <Image
             src={project.data.image}
             alt={project.data.name}
             width={1200}
             height={630}
-            class="object-cover"
+            class="w-full h-full object-cover rounded-lg"
           />
         </div>
       )
     }
-    <div class="grow min-w-0 break-words">
-      <h3 class="mb-1 text-lg font-medium">
+    <div class="grow min-w-0">
+      <h3 class="mb-1 text-base font-medium line-clamp-1">
         {project.data.name}
       </h3>
-      <p class="text-muted-foreground mb-2 text-sm line-clamp-3 overflow-hidden break-words">
+      <p class="text-muted-foreground mb-2 text-sm line-clamp-2 overflow-hidden">
         {project.data.description}
       </p>
       {
         project.data.startDate && (
           <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
-            <span class="flex items-center gap-x-1.5">
-              <Icon name="lucide:calendar" class="size-3" />
-              <span>
-                {formatDate(project.data.startDate)}
-                {project.data.endDate
-                  ? ` → ${formatDate(project.data.endDate)}`
-                  : ' → Present'}
-              </span>
+            <Icon name="lucide:calendar" class="size-3" />
+            <span>
+              {formatDate(project.data.startDate)}
+              {project.data.endDate
+                ? ` → ${formatDate(project.data.endDate)}`
+                : ' → Present'}
             </span>
           </p>
         )
       }
       {
         project.data.tags && (
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-1">
             {project.data.tags.map((tag: string) => (
-              <Badge variant="secondary">{tag}</Badge>
+              <Badge variant="secondary" class="text-xs px-2 py-0.5">{tag}</Badge>
             ))}
           </div>
         )
