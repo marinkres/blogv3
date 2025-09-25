@@ -5,7 +5,7 @@
 <script>
   // Disable right-click context menu on images
   document.addEventListener('contextmenu', function(e) {
-    if (e.target.tagName === 'IMG') {
+    if (e.target && (e.target as HTMLElement).tagName === 'IMG') {
       e.preventDefault();
       return false;
     }
@@ -13,7 +13,7 @@
 
   // Disable drag and drop for images
   document.addEventListener('dragstart', function(e) {
-    if (e.target.tagName === 'IMG') {
+    if (e.target && (e.target as HTMLElement).tagName === 'IMG') {
       e.preventDefault();
       return false;
     }
@@ -48,7 +48,7 @@
 
   // Disable text selection on images
   document.addEventListener('selectstart', function(e) {
-    if (e.target.tagName === 'IMG') {
+    if (e.target && (e.target as HTMLElement).tagName === 'IMG') {
       e.preventDefault();
       return false;
     }
@@ -59,9 +59,9 @@
     const images = document.querySelectorAll('img');
     images.forEach(img => {
       img.style.userSelect = 'none';
-      img.style.webkitUserSelect = 'none';
-      img.style.mozUserSelect = 'none';
-      img.style.msUserSelect = 'none';
+      (img.style as any).webkitUserSelect = 'none';
+      (img.style as any).mozUserSelect = 'none';
+      (img.style as any).msUserSelect = 'none';
       img.draggable = false;
       img.oncontextmenu = function() { return false; };
     });
