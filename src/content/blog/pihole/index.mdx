@@ -80,13 +80,8 @@ VALUE=1
 [ "$STATE" == "off" ] && VALUE=0
 
 for led in "${LEDS[@]}"; do
-    # Make sure LED directory exists
     [ -d "$led" ] || continue
-
-    # Set trigger to none (manual control)
     echo none | sudo tee "$led/trigger" > /dev/null
-
-    # Set brightness
     echo $VALUE | sudo tee "$led/brightness" > /dev/null
 done
 ```

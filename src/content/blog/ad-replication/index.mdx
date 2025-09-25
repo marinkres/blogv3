@@ -14,7 +14,7 @@ But stuff can and will go wrong eventually.
 We’re going to intentionally disrupt AD replication between two domain controllers and then bring it back to life. Think of it as a controlled experiment to learn how AD replication works, and more importantly, how to troubleshoot it when things go sideways.
 
 ## The Scenario
-Imagine a scenario where your organization relies on two Windows Server 2019-based domain controllers. Replication between these controllers is cruciall for maintaining consistency across the AD forest. However, for testing purposes or troubleshooting, you need to disrupt this synchronization.
+Imagine a scenario where your organization relies on two Windows Server 2019-based domain controllers. Replication between these controllers is cruciall for maintaining consistency across the AD forest. However, for testing purposes or troubleshooting, lets disrupt this synchronization.
 
 **Environment**: Two Windows Server 2019 VM’s with Active Domain Services installed and configured.
 
@@ -43,7 +43,7 @@ repadmin /replsum
 ```
 
 You should see errors pop up like “A local object with this GUID already exists.” 
-Congrats! You’ve successfully broken replication because our modification creates a conflict which the server can’t replicate due to newer changes.
+Just like that you’ve successfully broken replication because our modification creates a conflict which the server can’t replicate due to newer changes.
 
 Since the whenCreated is an immutable value the error happens even before the USN comparison. It creates a mismatch between the main and the replica DC, the GUID remains the same but the metadata (date) that isn't supposed to change is different hence the GUID error during replication.
 

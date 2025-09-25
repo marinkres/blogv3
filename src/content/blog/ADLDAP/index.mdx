@@ -1,6 +1,6 @@
 ---
 title: 'OpenLDAP / AD Integration - Centralized User Management'
-description: 'Integrating Windows Active Directory and OpenLDAP through Samba Server: Technological Solution for Heterogeneous Network Infrastructures'
+description: 'Integrating Windows Active Directory and OpenLDAP through Samba Server.'
 date: 2025-02-05
 tags: ['sysadmin', 'linux', 'AD', 'windows', 'lab']
 image: './adldap1.png'
@@ -53,7 +53,7 @@ Add-DnsServerPrimaryZone -NetworkID "192.168.1.0/24" -ReplicationScope "Forest"
 Add-DnsServerResourceRecordA -Name "openldap" -IPv4Address "192.168.1.20"
 ```
 
-This approach eliminates dependence on external DNS resolvers and enables dynamic registration of clients through Samba integration.
+This eliminates dependence on external DNS resolvers and enables dynamic registration of clients through Samba.
 
 <Image src={TwoImg} width="600" height="400" alt="Two" />
 

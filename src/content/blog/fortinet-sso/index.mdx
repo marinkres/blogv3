@@ -78,7 +78,7 @@ Primary FSSO agent ip address should be that of our DC server, and the password 
 
 After clicking Save & Apply, you should see the FortiGate automatically added the group filters, and in DC the Status displays our Connected FortiGate. 
 
-By following these detailed steps, you can ensure that the FSSO Collector Agent is properly configured to monitor user logon events and communicate effectively with your FortiGate device.
+Now the FSSO Collector Agent is properly configured to monitor user logon events and communicate effectively with your FortiGate device.
 
 If you encounter any issues, refer to the logs and diagnostic tools for further troubleshooting, or check [this post](https://community.fortinet.com/t5/FortiGate/Technical-Tip-Common-reasons-FSSO-status-shows-as-down-on-the/ta-p/193790) for potential fixes.
 
@@ -92,5 +92,5 @@ on the FortiGate CLI to display the current logon sessions and verify that the u
 
 <Image src={SevenImg} alt="Fortinet" />
 
-To further validate, create a firewall policy that applies to the user group authenticated via FSSO and attempt to access resources governed by this policy. Monitor the logs to ensure that access is granted or denied as expected based on the user's group membership. These steps will help confirm that FSSO is accurately capturing and utilizing user authentication data.
+To further validate, create a firewall policy that applies to the user group authenticated via FSSO and attempt to access resources governed by this policy. Monitor the logs to ensure that access is granted or denied as expected based on the user's group membership.  
 
