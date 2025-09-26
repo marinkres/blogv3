@@ -1,8 +1,7 @@
 ---
 import Link from '@/components/Link.astro'
-import MobileMenu from '@/components/ui/mobile-menu.tsx'
 
-import { NAV_LINKS, SITE } from '@/consts'
+import { NAV_LINKS } from '@/consts'
 
 
 ---
@@ -86,7 +85,7 @@ import { NAV_LINKS, SITE } from '@/consts'
 </script>
 
 <script>
-  function handleToggleClick(event) {
+  function handleToggleClick(event: Event) {
     event.preventDefault()
     event.stopPropagation()
     
