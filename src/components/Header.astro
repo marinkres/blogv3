@@ -1,6 +1,6 @@
 ---
 import Link from '@/components/Link.astro'
-
+import { Icon } from 'astro-icon/components'
 import { NAV_LINKS } from '@/consts'
 
 
@@ -24,13 +24,17 @@ import { NAV_LINKS } from '@/consts'
               href={item.href}
               class="hover:text-foreground/50 transition-colors py-2 px-1"
             >
-              {item.label}
+              {item.href === '/' ? (
+                <Icon name="lucide:home" class="w-5 h-5" />
+              ) : (
+                item.label
+              )}
             </Link>
           ))
         }
       </nav>
 
-      <!-- Text-based theme toggle -->
+      <!-- Icon-based theme toggle -->
       <button 
         id="theme-toggle" 
         type="button"
@@ -38,7 +42,10 @@ import { NAV_LINKS } from '@/consts'
         title="Toggle theme"
         aria-label="Toggle theme"
       >
-        <span id="theme-text">/dark</span>
+        <!-- Sun icon (shown in dark mode) -->
+        <Icon name="lucide:sun" class="w-5 h-5 hidden dark:block" />
+        <!-- Moon icon (shown in light mode) -->
+        <Icon name="lucide:moon" class="w-5 h-5 block dark:hidden" />
       </button>
     </div>
   </div>
@@ -114,11 +121,7 @@ import { NAV_LINKS } from '@/consts'
     // Save the new theme preference
     localStorage.setItem('theme', newTheme)
     
-    // Update the text
-    const themeText = document.getElementById('theme-text')
-    if (themeText) {
-      themeText.textContent = newTheme === 'dark' ? '/light' : '/dark'
-    }
+    // Icons will automatically show/hide based on dark class via CSS
     
     console.log(`Theme switched from ${currentTheme} to ${newTheme}`)
   }
@@ -131,14 +134,9 @@ import { NAV_LINKS } from '@/consts'
       themeToggle.removeEventListener('click', handleToggleClick)
       themeToggle.addEventListener('click', handleToggleClick)
       
-      // Set initial text
-      const themeText = document.getElementById('theme-text')
-      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-      if (themeText) {
-        themeText.textContent = currentTheme === 'dark' ? '/light' : '/dark'
-      }
+      // Icons will automatically show/hide based on dark class via CSS
       
-      console.log('Text theme toggle initialized')
+      console.log('Icon theme toggle initialized')
     } else {
       console.warn('Theme toggle button not found')
     }
