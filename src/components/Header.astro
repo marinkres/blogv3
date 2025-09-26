@@ -1,6 +1,5 @@
 ---
 import Link from '@/components/Link.astro'
-import ThemeToggle from '@/components/ThemeToggle.astro'
 import MobileMenu from '@/components/ui/mobile-menu.tsx'
 
 import { NAV_LINKS, SITE } from '@/consts'
@@ -14,44 +13,12 @@ import { NAV_LINKS, SITE } from '@/consts'
   transition:persist
 >
   <div
-    class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 pl-4 pb-2 pt-2 pr-4"
+    class="mx-auto flex max-w-3xl items-center justify-center md:justify-end gap-4 px-6 py-4 md:px-4 md:py-2"
   >
-    <!-- Desktop: Logo and title -->
-    <Link href="/" class="hidden md:flex shrink-0 items-center text-xl font-bold gap-2">
-      <img src="/www2.png" alt="Saturn Logo" class="w-13 h-13 mr-1" />
-      {SITE.title}
-    </Link>
-    
-    <!-- Mobile: Logo on left, centered nav, theme toggle on right -->
-    <div class="md:hidden flex items-center justify-between w-full py-2">
-      <!-- Mobile logo -->
-      <Link href="/" class="flex shrink-0 items-center">
-        <img src="/www2.png" alt="Saturn Logo" class="w-10 h-10" />
-      </Link>
-      
-      <!-- Centered navigation -->
-      <nav class="flex items-center gap-x-8 text-base font-semibold">
-        {
-          NAV_LINKS.map((item) => (
-            <Link
-              href={item.href}
-              class="hover:text-foreground/50 transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))
-        }
-      </nav>
-      
-      <!-- Theme toggle -->
-      <div class="flex shrink-0">
-        <ThemeToggle transition:persist />
-      </div>
-    </div>
-    
-    <!-- Desktop: Navigation and controls -->
-    <div class="hidden md:flex items-center gap-2 md:gap-4">
-      <nav class="flex items-center gap-x-6 text-sm font-medium">
+    <!-- Navigation and theme toggle -->
+    <div class="flex items-center gap-4 md:gap-6">
+      <!-- Navigation -->
+      <nav class="flex items-center gap-x-4 md:gap-x-6 text-sm font-medium">
         {
           NAV_LINKS.map((item) => (
             <Link
@@ -64,9 +31,16 @@ import { NAV_LINKS, SITE } from '@/consts'
         }
       </nav>
 
-      <div class="flex items-center gap-2">
-        <ThemeToggle transition:persist />
-      </div>
+      <!-- Text-based theme toggle -->
+      <button 
+        id="theme-toggle" 
+        type="button"
+        class="text-sm font-medium hover:text-foreground/50 transition-colors cursor-pointer"
+        title="Toggle theme"
+        aria-label="Toggle theme"
+      >
+        <span id="theme-text">/dark</span>
+      </button>
     </div>
   </div>
 </header>
@@ -87,3 +61,131 @@ import { NAV_LINKS, SITE } from '@/consts'
     letter-spacing: 0.05em;
   }
 </style>
+
+<script is:inline data-astro-rerun>
+  // Initialize theme immediately to prevent flash
+  (() => {
+    const localStorageTheme = localStorage?.getItem('theme') ?? ''
+    let theme
+    if (['dark', 'light'].includes(localStorageTheme)) {
+      theme = localStorageTheme
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      theme = 'dark'
+    } else {
+      theme = 'light'
+    }
+
+    if (theme === 'light') {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+
+    window.localStorage.setItem('theme', theme)
+  })()
+</script>
+
+<script>
+  function handleToggleClick(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    
+    const element = document.documentElement
+    const currentTheme = element.classList.contains('dark') ? 'dark' : 'light'
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
+
+    // Disable transitions during the switch
+    element.classList.add('disable-transitions')
+    
+    // Toggle the dark class
+    if (newTheme === 'dark') {
+      element.classList.add('dark')
+    } else {
+      element.classList.remove('dark')
+    }
+
+    // Force reflow to ensure the class change is applied
+    window.getComputedStyle(element).getPropertyValue('opacity')
+
+    // Re-enable transitions after a frame
+    requestAnimationFrame(() => {
+      element.classList.remove('disable-transitions')
+    })
+
+    // Save the new theme preference
+    localStorage.setItem('theme', newTheme)
+    
+    // Update the text
+    const themeText = document.getElementById('theme-text')
+    if (themeText) {
+      themeText.textContent = newTheme === 'dark' ? '/light' : '/dark'
+    }
+    
+    console.log(`Theme switched from ${currentTheme} to ${newTheme}`)
+  }
+
+  function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle')
+    
+    if (themeToggle) {
+      // Remove any existing event listeners to prevent duplicates
+      themeToggle.removeEventListener('click', handleToggleClick)
+      themeToggle.addEventListener('click', handleToggleClick)
+      
+      // Set initial text
+      const themeText = document.getElementById('theme-text')
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+      if (themeText) {
+        themeText.textContent = currentTheme === 'dark' ? '/light' : '/dark'
+      }
+      
+      console.log('Text theme toggle initialized')
+    } else {
+      console.warn('Theme toggle button not found')
+    }
+  }
+
+  function applyStoredTheme() {
+    const storedTheme = localStorage.getItem('theme')
+    const element = document.documentElement
+
+    if (storedTheme === 'dark') {
+      element.classList.add('dark')
+    } else {
+      element.classList.remove('dark')
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      applyStoredTheme()
+      initThemeToggle()
+    })
+  } else {
+    applyStoredTheme()
+    initThemeToggle()
+  }
+
+  // Handle Astro view transitions
+  document.addEventListener('astro:after-swap', () => {
+    const element = document.documentElement
+
+    element.classList.add('disable-transitions')
+
+    // Force reflow
+    window.getComputedStyle(element).getPropertyValue('opacity')
+
+    applyStoredTheme()
+
+    requestAnimationFrame(() => {
+      element.classList.remove('disable-transitions')
+    })
+
+    // Re-initialize the theme toggle after navigation
+    initThemeToggle()
+  })
+
+  // Also handle page load events
+  window.addEventListener('load', initThemeToggle)
+</script>
