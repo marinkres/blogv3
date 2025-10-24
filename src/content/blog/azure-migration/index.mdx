@@ -39,10 +39,7 @@ After creating the resource group, I proceeded to set up a new **Azure Storage a
 _Figure 1._
 
 ### Infrastructure as Code (IaC)
-To manage my Azure resources using Infrastructure as Code, I created an ARM template that defined my storage account and static website configuration. This template includes:
-
-- Storage Account Resource: Configured with properties like SKU, kind, and static website settings.
-- Outputs: Providing the primary endpoint for the static website, making it easy to reference in other scripts or documentation.
+To manage my Azure resources using Infrastructure as Code, I created an ARM template that defined my storage account and static website configuration. This template includes Storage Account Resource configured with properties like SKU, kind, and static website settings and outputs providing the primary endpoint for the static website, making it easy to reference in other scripts or documentation.
 
 ### Deploying
 After setting up the Azure resources, I uploaded my blog files to the Azure Storage static website.
@@ -50,8 +47,6 @@ I ensured that my directory structure was organized, which helped maintain clari
 
 ### Configuring Azure CDN
 To enhance the performance of my blog, I configured Azure CDN to cache and distribute content globally. This step allows for faster delivery of static content like images, CSS, and JavaScript files to users across different geographical locations. The CDN caches these assets, reducing latency and improving load times.
-
-Here's how I set up the Azure CDN:
 
 - **CDN Profile Creation**: I created a new CDN profile in the Azure portal and selected the pricing tier based on my expected usage.
 - **Endpoint Configuration**: I set up a CDN endpoint pointing to my Azure Storage static website. This endpoint serves as the public URL for my blog's assets.

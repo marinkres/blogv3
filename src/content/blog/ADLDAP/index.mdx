@@ -19,21 +19,21 @@ import SixImg from './Six.webp';
 
 ## Introduction
 
-In hybrid IT environments, where Linux and Windows servers coexist, managing user authentication across platforms can be tricky. A centralized authentication system ensures simplicity, security, and efficiency by synchronizing user accounts and credentials between systems. 
+In hybrid IT environments, where Linux and Windows servers coexist, managing user authentication can be tricky. A centralized auth system ensures simplicity, security, and efficiency by synchronizing user accounts and credentials between systems. 
 
-This project implementation successfully integrated Windows Server 2019 Active Directory (AD) with an OpenLDAP system on CentOS Linux achieving bidirectional user account synchronization and centralized authentication management. 
+This project integrated Windows Server 2019 Active Directory (AD) with an OpenLDAP system on CentOS Linux achieving bidirectional user account synchronization and centralized authentication management. 
 
-Key technical elements include configuring DNS for inter-server communication, setting up Kerberos authentication for secure interaction, and using Samba services to join the Linux server to the AD domain. 
+Key elements include configuring DNS for inter-server communication, setting up Kerberos authentication for secure interaction, and using Samba services to join the Linux server to the AD domain. 
 
 <Callout variant="important">
 **This is not a step by step guide, but a over simplified explanation of the project workings.**
 </Callout>
 
-## Architecture of the Heterogeneous System
+## System acrhitecture
 
-### Two-Component Model: Windows and Linux Server Infrastructure
+### Windows and Linux Server Infrastructure
 
-The implementation uses the VMware Workstation Pro 2017 virtualization platform with two virtual machines:
+I used VMware Workstation Pro 2017 virtualization platform with two virtual machines:
 | Server | IP | DNS | Services |
 | ---- | ----------- | ------- | ------- |
 | `ADSERVER.local` | `192.168.1.10` | `127.0.0.1` | `Active Directory Domain Services, DNS Server` |
@@ -60,7 +60,7 @@ This eliminates dependence on external DNS resolvers and enables dynamic registr
 ## Configuring Windows Active Directory
 ### Initial Procedure for Promotion to DC
 
-After the basic installation of Windows Server we promote the server to a Domain Controller with the creation of a new forest, adserver.local. 
+After the basic installation of Windows Server I promoted the server to a Domain Controller with the new forest, adserver.local. 
 
 The functionality of AD can be verified through the Active Directory Users and Computers console, where test users (e.g., "Marko," "Darko") were created.
 
@@ -71,13 +71,9 @@ The functionality of AD can be verified through the Active Directory Users and C
 ## Linux OpenLDAP and Samba Integration
 ### Basic OpenLDAP Installation Procedure
 
-On the CentOS server, OpenLDAP was installed through the yum repository with the following packages:
-
 ```bash
 yum install -y openldap-servers openldap-clients sssd samba samba-client
 ```
-
-Key configuration steps include:
 
 1. **slapd.conf**:
 ```text
@@ -101,7 +97,6 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
 dn: ou=People,dc=adserver,dc=local
 objectClass: organizationalUnit
 ou: People
-Kerberos authentication was configured through /etc/krb5.conf, directing KDC requests to the Windows Server.
 ```
 
 Kerberos authentication was configured through /etc/krb5.conf, directing KDC requests to the Windows Server.
@@ -131,12 +126,11 @@ Validation of successful joining was verified through wbinfo -u, which displays 
 
 ## User Account Synchronization
 ### Bidirectional Attribute Replication
-Using the ldapsearch and ldapmodify tools, the synchronization of user entities was experimentally proven:
+Using the ldapsearch and ldapmodify, the synchronization of user entities was proven:
 
 ```bash
 ldapsearch -x -H ldap://ADSERVER.adserver.local -b "dc=adserver,dc=local"
 ```
-Example of a synchronized user in OpenLDAP:
 
 ```text
 dn: uid=marko,ou=People,dc=adserver,dc=local
@@ -147,17 +141,17 @@ givenName: Marko
 mail: marko@adserver.local
 userPassword: {SSHA}...
 ```
-The Samba smbldap-tools package enabled automatic mapping of SIDs from AD to UNIX UID/GID values, using the idmap_rid mechanism.
+The Samba smbldap-tools enabled automatic mapping of SIDs from AD to UNIX UID/GID values, using the idmap_rid mechanism.
 
 ## Security Aspects and Authentication Protocols
 ### Kerberos TGS Exchange Process
-Testing of Kerberos authentication was performed through:
+Kerberos auth testing:
 
 ```bash
 kinit administrator@ADSERVER.LOCAL
 klist
 ```
-The output shows a successfully obtained TGT (Ticket Granting Ticket), while the kvno tool verifies service tickets for LDAP and SMB.
+The output shows a successfully obtained TGT (Ticket Granting Ticket)
 
 ### SASL/GSSAPI Integration
 OpenLDAP was configured to support the GSSAPI mechanism through olcSaslSecProps parameters in the cn=config DIT:
